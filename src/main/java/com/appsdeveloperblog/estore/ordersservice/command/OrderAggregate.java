@@ -1,6 +1,5 @@
-package com.appsdeveloperblog.estore.ordersservice;
+package com.appsdeveloperblog.estore.ordersservice.command;
 
-import com.appsdeveloperblog.estore.ordersservice.command.CreateOrderCommand;
 import com.appsdeveloperblog.estore.ordersservice.core.events.OrderCreatedEvent;
 import com.appsdeveloperblog.estore.ordersservice.core.model.OrderStatus;
 import org.axonframework.commandhandling.CommandHandler;
@@ -15,15 +14,21 @@ public class OrderAggregate {
     // Data fields
     @AggregateIdentifier
     private String orderId;
+
     private String userId;
     private String productId;
     private int quantity;
     private String addressId;
     private OrderStatus orderStatus;
 
+    // Required by Axon
     public OrderAggregate() {
     }
 
+    /**
+     * Command handling function.
+     * @param createOrderCommand The command
+     */
     @CommandHandler
     public OrderAggregate(CreateOrderCommand createOrderCommand) {
         // Create the event
@@ -39,7 +44,7 @@ public class OrderAggregate {
     }
 
     @EventSourcingHandler
-    public void on(OrderCreatedEvent orderCreatedEvent) {
+    public void on(OrderCreatedEvent orderCreatedEvent) throws Exception {
         this.orderId = orderCreatedEvent.getProductId();
         this.productId = orderCreatedEvent.getProductId();
         this.userId = orderCreatedEvent.getUserId();
