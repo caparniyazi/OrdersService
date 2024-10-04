@@ -45,7 +45,7 @@ public class OrderAggregate {
 
     @EventSourcingHandler
     public void on(OrderCreatedEvent orderCreatedEvent) throws Exception {
-        this.orderId = orderCreatedEvent.getProductId();
+        this.orderId = orderCreatedEvent.getOrderId();
         this.productId = orderCreatedEvent.getProductId();
         this.userId = orderCreatedEvent.getUserId();
         this.addressId = orderCreatedEvent.getAddressId();
