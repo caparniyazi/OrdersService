@@ -1,4 +1,4 @@
-package com.appsdeveloperblog.estore.ordersservice.command;
+package com.appsdeveloperblog.estore.ordersservice.command.commands;
 
 import com.appsdeveloperblog.estore.ordersservice.core.model.OrderStatus;
 import lombok.Builder;

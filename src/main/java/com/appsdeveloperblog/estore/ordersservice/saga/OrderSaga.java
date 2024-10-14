@@ -6,7 +6,7 @@ import com.appsdeveloperblog.estore.core.events.PaymentProcessedEvent;
 import com.appsdeveloperblog.estore.core.events.ProductReservedEvent;
 import com.appsdeveloperblog.estore.core.model.User;
 import com.appsdeveloperblog.estore.core.query.FetchUserPaymentDetailsQuery;
-import com.appsdeveloperblog.estore.ordersservice.command.ApproveOrderCommand;
+import com.appsdeveloperblog.estore.ordersservice.command.commands.ApproveOrderCommand;
 import com.appsdeveloperblog.estore.ordersservice.core.events.OrderApprovedEvent;
 import com.appsdeveloperblog.estore.ordersservice.core.events.OrderCreatedEvent;
 import org.axonframework.commandhandling.CommandCallback;
@@ -16,7 +16,6 @@ import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.modelling.saga.EndSaga;
 import org.axonframework.modelling.saga.SagaEventHandler;
-import org.axonframework.modelling.saga.SagaLifecycle;
 import org.axonframework.modelling.saga.StartSaga;
 import org.axonframework.queryhandling.QueryGateway;
 import org.axonframework.spring.stereotype.Saga;
@@ -26,7 +25,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Nonnull;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Inform axon framework that this class is a saga class.
@@ -103,7 +101,7 @@ public class OrderSaga {
 
         String result = null;
         try {
-            result = commandGateway.sendAndWait(processPaymentCommand, 10, TimeUnit.SECONDS);
+            result = commandGateway.sendAndWait(processPaymentCommand);
         } catch (Exception e) {
             // Start compensating transaction
             LOGGER.error(e.getMessage());
@@ -126,7 +124,7 @@ public class OrderSaga {
     @EndSaga
     @SagaEventHandler(associationProperty = "orderId")
     public void handle(OrderApprovedEvent orderApprovedEvent) {
-        LOGGER.info("Order is approved. OrderSaga is complete for orderId: " + orderApprovedEvent);
+        LOGGER.info("Order is approved. OrderSaga is complete for orderId: " + orderApprovedEvent.getOrderId());
         //SagaLifecycle.end(); Maybe used if there is a conditional logic.
     }
 }

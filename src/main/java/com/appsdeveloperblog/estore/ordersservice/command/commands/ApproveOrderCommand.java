@@ -1,4 +1,4 @@
-package com.appsdeveloperblog.estore.ordersservice.command;
+package com.appsdeveloperblog.estore.ordersservice.command.commands;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

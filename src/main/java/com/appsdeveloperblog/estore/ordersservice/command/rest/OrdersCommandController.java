@@ -1,11 +1,10 @@
 package com.appsdeveloperblog.estore.ordersservice.command.rest;
 
-import com.appsdeveloperblog.estore.ordersservice.command.CreateOrderCommand;
+import com.appsdeveloperblog.estore.ordersservice.command.commands.CreateOrderCommand;
 import com.appsdeveloperblog.estore.ordersservice.core.model.OrderStatus;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.hibernate.query.Order;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
